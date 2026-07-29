@@ -123,4 +123,4 @@ Swagger details are available at `/api/docs` while the server is running.
 
 ## Rough Hours Spent
 
-Built as a focused take-home implementation in roughly 6-8 hours of equivalent effort.
+Implementation is taken roughly 4-5 hours of equivalent effort.
