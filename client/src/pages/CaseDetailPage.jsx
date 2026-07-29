@@ -30,8 +30,13 @@ export function CaseDetailPage() {
   }, [id]);
 
   async function loadCase() {
-    const { data } = await api.get(`/cases/${id}`);
-    setItem(data.case);
+    setError("");
+    try {
+      const { data } = await api.get(`/cases/${id}`);
+      setItem(data.case);
+    } catch (err) {
+      setError(err.response?.data?.message || "Unable to load case");
+    }
   }
 
   const transitions = useMemo(() => {
@@ -82,7 +87,14 @@ export function CaseDetailPage() {
     });
   }
 
-  if (!item) return <Typography>Loading case...</Typography>;
+  if (!item) {
+    return (
+      <Stack spacing={2}>
+        <Button component={Link} to="/cases" sx={{ alignSelf: "flex-start" }}>Back</Button>
+        {error ? <Alert severity="error">{error}</Alert> : <Typography>Loading case...</Typography>}
+      </Stack>
+    );
+  }
 
   return (
     <Stack spacing={3}>

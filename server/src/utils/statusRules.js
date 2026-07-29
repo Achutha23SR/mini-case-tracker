@@ -28,7 +28,9 @@ export function assertStatusTransition(user, item, toStatus) {
 
 export function assertAgentOwnsCase(user, item) {
   if (user.role !== "Agent") return;
-  if (!item.assignedAgent || item.assignedAgent.toString() !== user._id.toString()) {
+
+  const assignedAgentId = item.assignedAgent?._id || item.assignedAgent;
+  if (!assignedAgentId || assignedAgentId.toString() !== user._id.toString()) {
     throw new AppError("Agents can only access cases assigned to them", 403);
   }
 }
